@@ -1,0 +1,25 @@
+//consts for fonts
+$main-font-family: Inter, Roboto, Arial, sans-serif;
+
+// consts colors for app
+$bg-dark: #0B0F14; // main dark background
+$bg-elev: #0F1620; // cards and pannels background
+$bg-soft: #12171E; // modal windows and sidebars background
+$text-primary: #E6EEF3; // main text color (body and headers)
+$text-muted: #9AA6B2; // secondary text color (muted text, hints, etc)
+$text-inverse: #0B0F14; // text on light backgrounds
+$accent-primary: #00C2FF; // primary accent color (links, buttons, highlights)
+$accent-cta: #FF3B6B; // call to action accent color (warnings, alerts)
+$success: #3DDC84; // success messages and indicators
+$warning: #FFB020; // warning messages and indicators
+$error: #FF4D4F; // error messages and indicators
+$neon-magenta: #FF2D95; // decorative accent color (badge, borders)
+$neon-purple: #7B61FF; // hover-glow on interactive elements
+
+
+// default animation
+$transition: all 0.2s ease-in;
+$transition-opacity: opacity 0.3s linear;
+$transition-value:
+    opacity 0.2s linear,
+    text-shadow 0.3s linear;
