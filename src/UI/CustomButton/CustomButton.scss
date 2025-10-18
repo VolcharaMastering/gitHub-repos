@@ -1,0 +1,51 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+
+.custom-button {
+    @include texts.button-text();
+    background-color: consts.$accent-primary;
+    border-radius: 10px;
+    transition: consts.$transition-opacity;
+    padding: 10px;
+    &.image-button {
+        background-image: var(--button-image);
+        width: var(--button-width);
+        height: var(--button-width);
+        background-repeat: no-repeat;
+        background-size: var(--icon-width) or cover;
+        background-position: center;
+        border: none;
+        transition: consts.$transition-opacity;
+    }
+    &.thin {
+        border: consts.$default-border;
+    }
+    &.custom-size {
+        width: var(--button-width);
+        height: var(--button-height);
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        // drop hover styles if button is disabled
+        &:hover {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.custom-button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+
+    // drop hover if button is disabled
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

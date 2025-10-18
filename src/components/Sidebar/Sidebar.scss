@@ -1,0 +1,29 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+    .sidebar {
+        @include blocks.default_block( $justify: start);
+        text-decoration: none;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        .link {
+            margin: 15px 0;
+            text-decoration: none;
+            color: consts.$text-primary;
+            font-size: 20px;
+            transition: consts.$transition-value;
+
+            &:hover {
+                background-color: consts.$bg-soft;
+                border-radius: 10px;
+                box-shadow: 0 0 50px consts.$neon-purple;
+                color: consts.$neon-purple;
+            }
+        }
+        .active {
+            color: consts.$neon-purple;
+        }
+    }

@@ -1,0 +1,14 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+.header{
+    @include blocks.flex_row($align: center, $justify: center, $gap: 40px);
+    height: 80px;
+    width: 100%;
+    border-bottom: consts.$default-border;
+    .header-logo{
+        width: auto;
+        height: 80px;
+    }
+}

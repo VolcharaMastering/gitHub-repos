@@ -1,0 +1,27 @@
+@use "styles/text-mixins.scss" as texts;
+@use "styles/consts" as consts;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+    background: consts.$bg-dark;
+    min-width: 320px;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    
+    .main-title {
+        @include texts.title-text();
+    }
+    
+.subtitle {
+    @include texts.main-font-style($font-size: 32px, $font-weight: 500);
+}
+}

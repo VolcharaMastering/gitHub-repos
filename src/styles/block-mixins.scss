@@ -1,0 +1,69 @@
+@use "./consts" as consts;
+@use "./text-mixins" as text;
+
+// ------mixins for blocks
+@mixin flex_row($align: center, $justify: space-between, $gap: 0) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin flex_column($align: center, $justify: space-between, $gap: 0) {
+    display: flex;
+    flex-direction: column;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin default_block(
+    $bg-color: consts.$bg-elev,
+    $padding: 22px,
+    $border-radius: 12px,
+    $align: center,
+    $justify: center,
+    $gap: 0,
+    $border: 1px solid consts.$border-color,
+    $font-size: 18px,
+    $color: consts.$text-primary
+) {
+    @include flex_column($align: $align, $justify: $justify, $gap: $gap);
+    background-color: $bg-color;
+    padding: $padding;
+    border-radius: $border-radius;
+    border: $border;
+    @include text.main-font-style($font-size: font-size, $color: $color);
+}
+@mixin gridAutoFill(
+    $place-items: flex-start center,
+    $justify: space-between,
+    $columns-number: "auto-fit",
+    $min-width: 300px,
+    $max-width: 1fr,
+    $gap: 10px
+) {
+    display: grid;
+    width: 100%;
+    box-sizing: border-box;
+    grid-template-columns: repeat($columns-number, minmax($min-width, $max-width));
+    justify-content: $justify;
+    place-items: $place-items;
+    gap: $gap;
+}
+
+@mixin button() {
+    border-radius: 10px;
+    @include text.button-text();
+    width: 50px;
+    height: 30px;
+    background-color: consts.$accent-primary;
+    border: none;
+    transition: consts.$transition;
+}
+
+// ------special block decoration
+@mixin list-without-dots {
+    @include flex_row();
+    list-style-type: none;
+}

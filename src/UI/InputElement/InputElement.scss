@@ -1,0 +1,50 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+
+.input-element {
+    @include blocks.flex-column($align: flex-start);
+    width: 100%;
+    height: fit-content;
+    position: relative;
+
+    &__label {
+        @include texts.main-font-style($color: consts.$text-primary);
+        width: 100%;
+        width: fit-content;
+        margin: 20px 0;
+    }
+
+    &__input {
+        @include texts.main-font-style($color: consts.$text-primary);
+        font-size: 16px;
+        width: 100%;
+        height: 40px;
+        background-color: transparent;
+        border: consts.$default-border;
+        margin: 0;
+        border-radius: 10px;
+        padding: 18px;
+    }
+
+    &__error-message {
+        position: absolute;
+        left: 5px;
+        bottom: -30px;
+        @include blocks.flex-row($gap: 2px, $align: flex-start, $justify: flex-start);
+        height: 25px;
+        font-size: 10px;
+        color: consts.$error;
+
+        &__error-message_icon {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            background-image: url(../../assets/error.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+}
+

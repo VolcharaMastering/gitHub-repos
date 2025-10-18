@@ -1,0 +1,18 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+
+.admin-page {
+    @include blocks.default_block($bg-color: consts.$bg-elev, $justify: start, $align: start);
+    padding: 22px;
+    min-width: 300px;
+    max-width: 1000px;
+    height: 100%;
+    width: 100%;
+    .description {
+        @include texts.main-font-style($color: consts.$text-muted);
+        margin-bottom: 24px;
+    }
+
+}

@@ -1,0 +1,8 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+.git-form{
+    width: 100%;
+    @include blocks.flex-column($align: flex-start, $justify: flex-start, $gap: 20px);
+}
