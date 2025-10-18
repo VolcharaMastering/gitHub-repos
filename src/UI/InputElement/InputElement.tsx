@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "./InputElement.scss";
 
 type PropsInputElement = {
@@ -42,4 +43,4 @@ const InputElement: React.FC<PropsInputElement> = ({
         </div>
     );
 };
-export default InputElement;
+export default memo(InputElement);

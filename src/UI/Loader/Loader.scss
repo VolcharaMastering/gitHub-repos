@@ -1,0 +1,21 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+.loader__shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  @include blocks.flex-column($justify: center);
+  background-color: #c0a2a29a;
+  z-index: 6;
+}
+.loader {
+  position: relative;
+  width: 200px; // Set the diameter of the circular rail
+  height: 200px;
+
+}
+

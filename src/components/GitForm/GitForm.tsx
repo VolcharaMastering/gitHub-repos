@@ -1,21 +1,30 @@
+import { useNavigate } from "react-router-dom";
 import { useFormStore } from "full-form-control";
 import { useAllReposStore } from "../../store/allReposStore";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 import InputElement from "../../UI/InputElement/InputElement";
-import "./GitForm.scss";
 import { formSchema } from "../../utils/validation/formSchema";
+import { useLoader } from "../../store/loaderStore";
+import "./GitForm.scss";
 
 const GitForm: React.FC = () => {
-    const { getAllRepos, repositories } = useAllReposStore();
+    const { getAllRepos } = useAllReposStore();
+    const { setIsLoading, setIsSuccess } = useLoader();
+    const navigate = useNavigate();
     //custom form validation npm package
     const { formValues, setFormValues, errors, isValid } = useFormStore();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setIsLoading(true);
+        setIsSuccess(false);
+        const { gitLogin, gitToken } = formValues;
         try {
-            const { gitLogin, gitToken } = formValues;
-            getAllRepos(gitLogin, gitToken);
+            await getAllRepos(gitLogin, gitToken);
+            navigate("/repositories");
+            setIsSuccess(true);
+            setIsLoading(false);
         } catch (error: unknown | Error) {
+            setIsLoading(false);
             if (error instanceof Error) {
                 console.error(`Error fetching repositories: ${error.message}`);
             } else {
@@ -27,8 +36,6 @@ const GitForm: React.FC = () => {
     const setInputData = async (name: string, value: string | Blob) => {
         setFormValues({ [name]: value }, { type: "zod", schema: formSchema });
     };
-
-    console.log("REPOS", repositories);
     return (
         <form className="git-form" onSubmit={handleSubmit}>
             <InputElement
