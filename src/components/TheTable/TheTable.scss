@@ -4,17 +4,27 @@
 .table {
     width: 100%;
     @include blocks.flex_column();
-    overflow-x: auto;
     background-color: transparent;
     .table__rows {
         border-top: none;
         width: 100%;
-        @include blocks.gridAutoFill(
-            $columns-number: var(--columns-number),
-            $min-width: 0,
-            $max-width: 1fr,
-            $gap: 0,
-            $justify: start
-        );
+        // @include blocks.gridAutoFill(
+        //     $columns-number: var(--columns-number),
+        //     $min-width: 0,
+        //     $max-width: 1fr,
+        //     $gap: 0,
+        //     $justify: start
+        // );   
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 
+        150px    // name
+        1fr      // description
+        140px     // Updated At
+        80px     // SSH URL
+        100px    // HTTPS URL
+        80px    // Visibility
+        50px     // edit
+        50px;    // delete
     }
 }

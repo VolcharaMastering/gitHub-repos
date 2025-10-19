@@ -1,4 +1,5 @@
 import axiosInstance from "../../config/axiosInstance";
+import { errorHandler } from "../errorHandler";
 
 export const updateRepo = async (
     gitLogin: string,
@@ -22,10 +23,6 @@ export const updateRepo = async (
         const response = await axiosInstance.patch(url, body, { headers });
         return response.data;
     } catch (error: unknown | Error) {
-        if (error instanceof Error) {
-            throw new Error(`Failed to update repository: ${error.message}`);
-        } else {
-            throw new Error(`Failed to update repository: ${String(error)}`);
-        }
+        errorHandler.handleError(error, "Error updating repository");
     }
 };

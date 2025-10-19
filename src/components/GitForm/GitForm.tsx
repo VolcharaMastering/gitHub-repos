@@ -7,6 +7,7 @@ import { formSchema } from "../../utils/validation/formSchema";
 import { useLoader } from "../../store/loaderStore";
 import "./GitForm.scss";
 import { useGitUserStore } from "../../store/gitUserStore";
+import { errorHandler } from "../../utils/errorHandler";
 
 const GitForm: React.FC = () => {
     const { setGitUser } = useGitUserStore();
@@ -28,11 +29,7 @@ const GitForm: React.FC = () => {
             setIsLoading(false);
         } catch (error: unknown | Error) {
             setIsLoading(false);
-            if (error instanceof Error) {
-                console.error(`Error fetching repositories: ${error.message}`);
-            } else {
-                console.error(`Error fetching repositories: ${String(error)}`);
-            }
+            errorHandler.handleError(error, "Error saving Git credentials");
         }
     };
     const setInputData = async (name: string, value: string | Blob) => {

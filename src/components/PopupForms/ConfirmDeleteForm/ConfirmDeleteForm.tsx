@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useOpenPopup } from "../../../store/popupStore";
 import CustomButton from "../../../UI/CustomButton/CustomButton";
+import { errorHandler } from "../../../utils/errorHandler";
 
 type PropsConfirmDeleteForm = {
     funcThatDeletes: () => Promise<void>;
@@ -38,7 +39,7 @@ const ConfirmDeleteForm: React.FC<PropsConfirmDeleteForm> = ({ funcThatDeletes }
             setDeleting(false);
             const errorMessage = err instanceof Error ? err.message : "Failed to delete repository";
             setError(errorMessage);
-            console.error("Delete error:", err);
+            errorHandler.handleError(err, "Error deleting repository");
         }
     };
 

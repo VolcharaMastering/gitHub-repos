@@ -8,9 +8,7 @@
     @include blocks.table-cell();
     padding: 10px 0;
     // max-width: 100px;
-    &.centered {
-        align-items: center;
-    }
+
     .table-cell__value {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -20,6 +18,15 @@
         // @include blocks.flex_row($justify: center, $gap: 10px);
     }
 }
+    .justify-left {
+        justify-content: left;
+    }
+    .justify-center {
+        justify-content: center;
+    }
+    .justify-right {
+        justify-content: right;
+    }
 // .table-cell_no-border {
 //   border-right: none;
 // }

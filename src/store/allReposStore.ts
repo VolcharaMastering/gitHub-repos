@@ -5,6 +5,7 @@ import { updateRepo } from "../utils/api/updateGitData";
 import { createRepo } from "../utils/api/createGitData";
 import { filterReposResponse } from "../utils/filterReposResponce";
 import { deleteRepo } from "../utils/api/deleteGitData";
+import { errorHandler } from "../utils/errorHandler";
 
 export const useAllReposStore = create<ReposStoreState>()(
     devtools(
@@ -22,22 +23,14 @@ export const useAllReposStore = create<ReposStoreState>()(
                     const repositories = response;
                     set({ repositories }, false, { type: "getAllRepos", payload: repositories });
                 } catch (error: unknown | Error) {
-                    if (error instanceof Error) {
-                        throw new Error(`Failed to fetch repositories: ${error.message}`);
-                    } else {
-                        throw new Error(`Failed to fetch repositories: ${String(error)}`);
-                    }
+                    errorHandler.handleError(error, "Error fetching repositories");
                 }
             },
             updateRepository: async (gitLogin, gitToken, repoName, newData) => {
                 try {
                     await updateRepo(gitLogin, gitToken, repoName, newData);
                 } catch (error: unknown | Error) {
-                    if (error instanceof Error) {
-                        throw new Error(`Failed to update repository: ${error.message}`);
-                    } else {
-                        throw new Error(`Failed to update repository: ${String(error)}`);
-                    }
+                    errorHandler.handleError(error, "Error updating repository");
                 }
                 set(
                     (state) => {
@@ -61,11 +54,7 @@ export const useAllReposStore = create<ReposStoreState>()(
                         { type: "createRepository", payload: newRepo }
                     );
                 } catch (error: unknown | Error) {
-                    if (error instanceof Error) {
-                        throw new Error(`Failed to create repository: ${error.message}`);
-                    } else {
-                        throw new Error(`Failed to create repository: ${String(error)}`);
-                    }
+                    errorHandler.handleError(error, "Error creating repository");
                 }
             },
             deleteRepository: async (gitLogin, gitToken, repoName) => {
@@ -82,11 +71,7 @@ export const useAllReposStore = create<ReposStoreState>()(
                         { type: "deleteRepository", payload: repoName }
                     );
                 } catch (error: unknown | Error) {
-                    if (error instanceof Error) {
-                        throw new Error(`Failed to delete repository: ${error.message}`);
-                    } else {
-                        throw new Error(`Failed to delete repository: ${String(error)}`);
-                    }
+                    errorHandler.handleError(error, "Error deleting repository");
                 }
             },
         }),

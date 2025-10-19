@@ -1,4 +1,5 @@
 import axiosInstance from "../../config/axiosInstance";
+import { errorHandler } from "../errorHandler";
 
 export const deleteRepo = async (
     gitLogin: string,
@@ -18,8 +19,6 @@ export const deleteRepo = async (
     try {
         await axiosInstance.delete(url, { headers });
     } catch (error: unknown | Error) {
-        if (error instanceof Error) {
-            throw new Error(`Failed to delete repository: ${error.message}`);
-        }
+        errorHandler.handleError(error, "Error deleting repository");
     }
 };

@@ -1,0 +1,106 @@
+
+// ErrorPopup.scss
+@use "../../styles/consts" as consts;
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+
+.error-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(11, 15, 20, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.error-popup {
+  @include blocks.default_block(
+    $bg-color: consts.$bg-elev,
+    $padding: 24px,
+    $border-radius: 12px
+  );
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  &__header {
+    @include blocks.flex_row($justify: space-between, $align: center);
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    @include texts.main-font-style($font-size: 24px, $font-weight: 700);
+    color: consts.$error;
+    margin: 0;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: consts.$text-muted;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    
+    &:hover {
+      background-color: consts.$bg-soft;
+      color: consts.$text-primary;
+    }
+  }
+
+  &__content {
+    margin-bottom: 20px;
+  }
+
+  &__message {
+    @include texts.main-font-style($font-size: 16px);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+  }
+
+  &__details {
+    border: 1px solid consts.$border-color;
+    border-radius: 8px;
+    overflow: hidden;
+
+    &-summary {
+      @include texts.main-font-style($font-size: 14px);
+      padding: 12px;
+      background-color: consts.$bg-soft;
+      cursor: pointer;
+      user-select: none;
+      
+      &:hover {
+        background-color: darken(consts.$bg-soft, 2%);
+      }
+    }
+
+    &-content {
+      @include texts.code-font-style($font-size: 12px);
+      background-color: consts.$bg-dark;
+      padding: 12px;
+      margin: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  }
+
+  &__actions {
+    @include blocks.flex_row($justify: flex-end, $gap: 12px);
+    
+    button {
+      min-width: 120px;
+    }
+  }
+}

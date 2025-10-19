@@ -6,6 +6,7 @@ import { useOpenPopup } from "../../../store/popupStore";
 import ConfirmDeleteForm from "../../../components/PopupForms/ConfirmDeleteForm/ConfirmDeleteForm";
 import { useAllReposStore } from "../../../store/allReposStore";
 import { useGitUserStore } from "../../../store/gitUserStore";
+import { errorHandler } from "../../../utils/errorHandler";
 
 type PropsDeleteButton = {
     repoName: string;
@@ -32,9 +33,7 @@ const DeleteButton: React.FC<PropsDeleteButton> = ({ repoName, width = "20px" })
         try {
             await deleteRepository(gitLogin, gitToken, repoName);
         } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : String(error);
-            console.error(`Failed to delete repository: ${errorMessage}`);
-            throw error;
+            errorHandler.handleError(error, "Error deleting repository");
         }
     }, [gitLogin, gitToken, repoName, deleteRepository]);
 

@@ -7,6 +7,7 @@ import InputElement from "../../../UI/InputElement/InputElement";
 import SelectElement from "../../../UI/SelectElement/SelectElement";
 import CustomButton from "../../../UI/CustomButton/CustomButton";
 import { createRepositorySchema } from "../../../utils/validation/createRepositorySchema";
+import { errorHandler } from "../../../utils/errorHandler";
 import "./NewRepoForm.scss";
 
 const NewRepoForm: React.FC = () => {
@@ -41,17 +42,13 @@ const NewRepoForm: React.FC = () => {
             clearFormValues();
         } catch (error: unknown | Error) {
             setIsLoading(false);
-            if (error instanceof Error) {
-                console.error("Error updating repository:", error.message);
-            } else {
-                console.error("Error updating repository:", String(error));
-            }
+            errorHandler.handleError(error, "Error creating new repository");
         }
     };
 
     return (
         <form className="new-repo-form" onSubmit={handleSubmit}>
-            <h2 className="subtitle">Edit Repository</h2>
+            <h2 className="subtitle">New Repository</h2>
 
             <InputElement
                 inputType="text"

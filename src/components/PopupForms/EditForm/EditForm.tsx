@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useFormStore } from "full-form-control";
 import { useGitUserStore } from "../../../store/gitUserStore";
 import { useLoader } from "../../../store/loaderStore";
@@ -7,9 +8,9 @@ import { updateFormSchema } from "../../../utils/validation/updateFormSchema";
 import InputElement from "../../../UI/InputElement/InputElement";
 import SelectElement from "../../../UI/SelectElement/SelectElement";
 import CustomButton from "../../../UI/CustomButton/CustomButton";
-import "./EditForm.scss";
-import { useEffect } from "react";
 import { useOpenPopup } from "../../../store/popupStore";
+import { errorHandler } from "../../../utils/errorHandler";
+import "./EditForm.scss";
 
 type PropsEditForm = {
     repoName: string;
@@ -19,7 +20,7 @@ const EditForm: React.FC<PropsEditForm> = ({ repoName }) => {
     const { setIsOpen } = useOpenPopup();
     const { updateRepository, repositories } = useAllReposStore();
     const { setIsLoading, setIsSuccess } = useLoader();
-    const { formValues, setFormValues, errors, isValid, clearFormValues } = useFormStore();
+    const { formValues, setFormValues, errors, isValid, unsubscribeFromStore } = useFormStore();
 
     const setInputData = async (name: string, value: string | Blob) => {
         setFormValues({ [name]: value }, { type: "zod", schema: updateFormSchema });
@@ -56,14 +57,11 @@ const EditForm: React.FC<PropsEditForm> = ({ repoName }) => {
             setIsSuccess(true);
             setIsLoading(false);
             setIsOpen(false, {});
-            clearFormValues();
+            unsubscribeFromStore();
         } catch (error: unknown | Error) {
             setIsLoading(false);
-            if (error instanceof Error) {
-                console.error("Error updating repository:", error.message);
-            } else {
-                console.error("Error updating repository:", String(error));
-            }
+            errorHandler.handleError(error, "Error updating repository");
+            unsubscribeFromStore();
         }
     };
     return (

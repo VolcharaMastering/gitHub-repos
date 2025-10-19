@@ -6,6 +6,7 @@ import { useLoader } from "../../store/loaderStore";
 import Loader from "../../UI/Loader/Loader";
 import { useOpenPopup } from "../../store/popupStore";
 import Popup from "../../UI/Popup/Popup";
+import ErrorPopup from "../../UI/ErrorPopup/ErrorPopup";
 
 const Root = () => {
     const { isLoading } = useLoader();
@@ -15,6 +16,7 @@ const Root = () => {
             {isLoading && <Loader />}
             {isOpen && <Popup />}
             <TheHeader />
+            <ErrorPopup />
             <section className="main">
                 <Sidebar />
                 <div className="content">

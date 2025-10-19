@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import CustomButton from "../../CustomButton/CustomButton";
 import copyIcon from "../../../assets/copy.svg";
 import "./CopyButton.scss";
+import { errorHandler } from "../../../utils/errorHandler";
 
 type PropsCopyButton = {
     textToCopy: string;
@@ -31,7 +32,7 @@ const CopyButton: React.FC<PropsCopyButton> = ({ textToCopy, width = "20px" }) =
             await navigator.clipboard.writeText(textToCopy);
             setIsCopied(true);
         } catch (error) {
-            console.error("Failed to copy:", error);
+            errorHandler.handleError(error, "Failed to copy text to clipboard");
         }
     }, [textToCopy]);
 

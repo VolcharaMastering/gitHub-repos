@@ -1,4 +1,5 @@
 import axiosInstance from "../../config/axiosInstance";
+import { errorHandler } from "../errorHandler";
 
 export const createRepo = async (gitLogin: string, gitToken: string, data: NewRepo) => {
     const headers = {
@@ -18,10 +19,6 @@ export const createRepo = async (gitLogin: string, gitToken: string, data: NewRe
         const response = await axiosInstance.post(url, body, { headers });
         return response.data;
     } catch (error: unknown | Error) {
-        if (error instanceof Error) {
-            throw new Error(`Failed to create repository: ${error.message}`);
-        } else {
-            throw new Error(`Failed to create repository: ${String(error)}`);
-        }
+        errorHandler.handleError(error, "Error creating repository");
     }
 };

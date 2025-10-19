@@ -1,4 +1,4 @@
-import gifsLoader from "../../assets/loader.gif";
+import gifsLoader from "../../assets/loader2.gif";
 import "./Loader.scss";
 
 const Loader: React.FC = () => {

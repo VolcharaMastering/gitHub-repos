@@ -44,11 +44,16 @@ const TheTable = () => {
                         <TableCell
                             key={`${item.id}-${key}`}
                             value={item[key as keyof Repository]}
-                            copyUrl={key === "html_url" || key === "clone_url"}
+                            copyUrl={key.toLowerCase().includes("url")}
+                            justify={key.toLowerCase().includes("url") ? "center" : undefined}
                         />
                     ))}
-                    <EditButton repoName={item.name} />
-                    <DeleteButton repoName={item.name} />
+                    <div className="table-cell justify-center">
+                        <EditButton repoName={item.name} />
+                    </div>
+                    <div className="table-cell justify-center">
+                        <DeleteButton repoName={item.name} />
+                    </div>
                 </div>
             ))}
         </div>

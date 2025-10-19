@@ -1,4 +1,5 @@
 import axiosInstance from "../../config/axiosInstance";
+import { errorHandler } from "../errorHandler";
 import { filterReposResponse } from "../filterReposResponce";
 
 export const getAllIRepos = async (
@@ -24,11 +25,8 @@ export const getAllIRepos = async (
         const repos = response.data.map((r: Repository) => filterReposResponse(r));
         return repos;
     } catch (error: unknown | Error) {
-        if (error instanceof Error) {
-            throw new Error(`Failed to get repository: ${error.message}`);
-        } else {
-            throw new Error(`Failed to get repository: ${String(error)}`);
-        }
+        errorHandler.handleError(error, "Error fetching repositories");
+        return []; // Return an empty array in case of error
     }
 };
 
@@ -39,10 +37,6 @@ export const getRepoData = async (gitOwner: string, gitRepo: string, gitToken: s
         const response = await axiosInstance.get(url, { headers });
         return response.data; // JSON object with repo details
     } catch (error: unknown | Error) {
-        if (error instanceof Error) {
-            throw new Error(`Failed to get repository: ${error.message}`);
-        } else {
-            throw new Error(`Failed to get repository: ${String(error)}`);
-        }
+        errorHandler.handleError(error, "Error fetching repository data");
     }
 };

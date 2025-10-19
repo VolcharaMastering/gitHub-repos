@@ -46,3 +46,11 @@ interface ReposStoreState {
     createRepository: (gitLogin: string, gitToken: string, data: NewRepo) => Promise<void>;
     deleteRepository: (gitLogin: string, gitToken: string, repoName: string) => Promise<void>;
 }
+
+interface ErrorState {
+    isError: boolean;
+    errorMessage: string;
+    errorDetails?: string;
+    setError: (message: string, details?: string) => void;
+    clearError: () => void;
+}
