@@ -6,8 +6,10 @@ import InputElement from "../../UI/InputElement/InputElement";
 import { formSchema } from "../../utils/validation/formSchema";
 import { useLoader } from "../../store/loaderStore";
 import "./GitForm.scss";
+import { useGitUserStore } from "../../store/gitUserStore";
 
 const GitForm: React.FC = () => {
+    const { setGitUser } = useGitUserStore();
     const { getAllRepos } = useAllReposStore();
     const { setIsLoading, setIsSuccess } = useLoader();
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ const GitForm: React.FC = () => {
         const { gitLogin, gitToken } = formValues;
         try {
             await getAllRepos(gitLogin, gitToken);
+            setGitUser(gitLogin, gitToken);
             navigate("/repositories");
             setIsSuccess(true);
             setIsLoading(false);
@@ -59,7 +62,7 @@ const GitForm: React.FC = () => {
                 value={formValues.gitToken}
             />
 
-            <CustomButton text="Save" disabled={!isValid} onSubmit={handleSubmit} />
+            <CustomButton type="submit" text="Save" disabled={!isValid} onSubmit={handleSubmit} />
         </form>
     );
 };

@@ -24,4 +24,10 @@ body {
 .subtitle {
     @include texts.main-font-style($font-size: 32px, $font-weight: 500);
 }
+.tooltip{
+    @include texts.code-font-style($color: consts.$text-inverse, $font-size: 12px);
+    background-color: consts.$accent-primary;
+    padding: 5px;
+    border-radius: 5px;
+}
 }

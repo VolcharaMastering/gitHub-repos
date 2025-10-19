@@ -29,5 +29,12 @@ interface ReposStoreState {
     repositories: Repository[];
     // loading: boolean;
     // error: string | null;
-    getAllRepos: (gitLogin: string, gitToken: string) => Promise<void>;
+    getAllRepos: (
+        gitLogin: string,
+        gitToken: string,
+        sortBy?: string,
+        direction?: "asc" | "desc",
+        per_page?: number,
+        page?: number
+    ) => Promise<void>;
 }

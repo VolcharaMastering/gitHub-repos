@@ -1,31 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useFloating, FloatingPortal, offset, shift } from "@floating-ui/react";
 import { useCallback, useState } from "react";
-
-import EditUserForm from "@/components/Forms/EditUserForm/EditUserForm";
-
-import SimpleButton from "@/UI/SimpleButton/SimpleButton";
-
-import { useOpenPopup } from "@/stores/popupState";
-
-import editIcon from "@/assets/edit-button.svg";
-import dictionary from "@/context/buttonLabels.json";
+import { useFloating, FloatingPortal, offset, shift } from "@floating-ui/react";
+// import EditForm from "../components/EditForm
+import CustomButton from "../../../UI/CustomButton/CustomButton";
+// import { useOpenPopup } from "@/stores/popupState";
+import editIcon from "../../../assets/edit-button.svg";
 
 type PropsEditButton = {
-    typeForEdit: "user" | "apk";
-    idToEdit: string;
+    idToEdit: number;
     width?: string;
-    iconWidth?: string;
 };
-const EditButton: React.FC<PropsEditButton> = ({
-    typeForEdit,
-    idToEdit,
-    width = "30px",
-    iconWidth = "20px",
-}) => {
-    const lang = "ru";
-    const editLabel = dictionary[lang].edit;
-    const { setIsOpen } = useOpenPopup();
+const EditButton: React.FC<PropsEditButton> = ({ idToEdit, width = "20px" }) => {
+    // const { setIsOpen } = useOpenPopup();
     const [isHovered, setIsHovered] = useState(false);
 
     const { refs, floatingStyles } = useFloating({
@@ -33,20 +18,12 @@ const EditButton: React.FC<PropsEditButton> = ({
         middleware: [offset(1), shift()],
     });
 
-    const handleOpenPopup = useCallback(() => {
-        switch (typeForEdit) {
-            case "user":
-                setIsOpen(true, {
-                    popupType: "form",
-                    formComponent: <EditUserForm editUser={idToEdit} />,
-                });
-                break;
-            case "apk":
-                break;
-            default:
-                break;
-        }
-    }, [setIsOpen]);
+    // const handleOpenPopup = useCallback(() => {
+    //             setIsOpen(true, {
+    //                 popupType: "form",
+    //                 formComponent: <EditUserForm editUser={idToEdit} />,
+    //             });
+    // }, [setIsOpen]);
 
     return (
         <div
@@ -54,19 +31,17 @@ const EditButton: React.FC<PropsEditButton> = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <SimpleButton
-                type="button"
-                imageForButton={editIcon}
-                background="transparent"
+            <CustomButton
+                imageForButton={{ src: editIcon }}
                 iconWidth={width}
                 customWidth={width}
                 border="none"
-                onClick={handleOpenPopup}
+                // onClick={handleOpenPopup}
             />
             {isHovered && (
                 <FloatingPortal>
                     <div ref={refs.setFloating} style={floatingStyles} className="tooltip active">
-                        {editLabel}
+                        Edit repo info
                     </div>
                 </FloatingPortal>
             )}

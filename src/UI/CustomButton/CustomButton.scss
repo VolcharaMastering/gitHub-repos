@@ -2,50 +2,53 @@
 @use "../../styles/text-mixins" as texts;
 @use "../../styles/consts" as consts;
 
-
 .custom-button {
     @include texts.button-text();
     background-color: consts.$accent-primary;
     border-radius: 10px;
     transition: consts.$transition-opacity;
     padding: 10px;
+    border: consts.$default-border; 
+    
     &.image-button {
         background-image: var(--button-image);
-        width: var(--button-width);
-        height: var(--button-width);
+        width: var(--button-width, 40px); 
+        height: var(--button-height, var(--button-width, 40px));
         background-repeat: no-repeat;
-        background-size: var(--icon-width) or cover;
+        background-size: var(--icon-width, cover); 
         background-position: center;
+        background-color: transparent;
         border: none;
-        transition: consts.$transition-opacity;
+        padding: 4px; 
+        
+        .button-icon {
+            width: var(--icon-width, 16px);
+            height: var(--icon-width, 16px);
+            object-fit: contain;
+        }
     }
+    
     &.thin {
         border: consts.$default-border;
     }
+    
     &.custom-size {
-        width: var(--button-width);
-        height: var(--button-height);
+        width: var(--button-width, auto);
+        height: var(--button-height, auto);
     }
-
-    &.disabled {
+    
+    &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
-
-        // drop hover styles if button is disabled
+        
         &:hover {
             opacity: 0.5;
             cursor: not-allowed;
         }
     }
-}
-
-.custom-button:hover {
-    opacity: 0.6;
-    cursor: pointer;
-
-    // drop hover if button is disabled
-    &.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+    
+    &:hover:not(:disabled) {
+        opacity: 0.6;
+        cursor: pointer;
     }
 }

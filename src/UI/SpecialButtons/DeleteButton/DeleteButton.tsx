@@ -1,31 +1,20 @@
 import { useFloating, FloatingPortal, offset, shift } from "@floating-ui/react";
 import { useState } from "react";
 
-import ConfirmApkDeleteForm from "@/components/Forms/ConfirmApkDeleteForm/ConfirmApkDeleteForm";
+// import ConfirmDeleteForm from "../components/ConfirmDeleteForm/ConfirmDeleteForm";
 
-import SimpleButton from "@/UI/SimpleButton/SimpleButton";
+import CustomButton from "../../../UI/CustomButton/CustomButton";
 
-import { useOpenPopup } from "@/stores/popupState";
+// import { useOpenPopup } from "@/stores/popupState";
 
-import deleteIcon from "@/assets/delete-button.svg";
-import dictionary from "@/context/buttonLabels.json";
+import deleteIcon from "../../../assets/delete-button.svg";
 
 type PropsDeleteButton = {
-    typeToDelete: string;
-    idToDelete: string;
+    idToDelete: number;
     width?: string;
-    iconWidth?: string;
-    stateToUpdate?: () => void;
 };
-const DeleteButton: React.FC<PropsDeleteButton> = ({
-    typeToDelete,
-    idToDelete,
-    width = "30px",
-    stateToUpdate,
-}) => {
-    const lang = "ru";
-    const deleteLabel = dictionary[lang].delete;
-    const { setIsOpen } = useOpenPopup();
+const DeleteButton: React.FC<PropsDeleteButton> = ({ idToDelete, width = "20px" }) => {
+    // const { setIsOpen } = useOpenPopup();
     const [isHovered, setIsHovered] = useState(false);
 
     // Initialize floating UI logic with placement at the top and middleware for offset and shift
@@ -35,16 +24,16 @@ const DeleteButton: React.FC<PropsDeleteButton> = ({
     });
 
     const handleOpenPopup = () => {
-        setIsOpen(true, {
-            popupType: "form",
-            formComponent: (
-                <ConfirmApkDeleteForm
-                    typeToDelete={typeToDelete}
-                    idToDelete={idToDelete}
-                    stateToUpdate={stateToUpdate}
-                />
-            ),
-        });
+        // setIsOpen(true, {
+        //     popupType: "form",
+        //     formComponent: (
+        //         <ConfirmApkDeleteForm
+        //             typeToDelete={typeToDelete}
+        //             idToDelete={idToDelete}
+        //             stateToUpdate={stateToUpdate}
+        //         />
+        //     ),
+        // });
     };
 
     return (
@@ -54,14 +43,12 @@ const DeleteButton: React.FC<PropsDeleteButton> = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <SimpleButton
-                type="button"
-                imageForButton={deleteIcon}
-                background="transparent"
+            <CustomButton
+                imageForButton={{ src: deleteIcon }}
                 iconWidth={width}
                 customWidth={width}
                 border="none"
-                onClick={handleOpenPopup}
+                // onClick={handleOpenPopup}
             />
             {isHovered && (
                 <FloatingPortal>
@@ -70,7 +57,7 @@ const DeleteButton: React.FC<PropsDeleteButton> = ({
                         style={floatingStyles} // Apply styles for floating element
                         className="tooltip active"
                     >
-                        {deleteLabel}
+                        Delete repo
                     </div>
                 </FloatingPortal>
             )}

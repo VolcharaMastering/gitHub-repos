@@ -1,0 +1,17 @@
+@use "../../../styles/text-mixins" as texts;
+@use "../../../styles/consts" as consts;
+
+.copy {
+    position: relative;
+}
+.info__copied {
+    position: absolute;
+    background-color: consts.$text-primary;
+    opacity: 0.5;
+    // border-radius: consts.$borders-radius;
+    @include texts.main-font-style();
+    width: fit-content;
+    text-wrap: nowrap;
+    top: 0px;
+    right: -20px;
+}

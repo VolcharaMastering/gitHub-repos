@@ -1,0 +1,20 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/consts" as consts;
+
+.table {
+    width: 100%;
+    @include blocks.flex_column();
+    overflow-x: auto;
+    background-color: transparent;
+    .table__rows {
+        border-top: none;
+        width: 100%;
+        @include blocks.gridAutoFill(
+            $columns-number: var(--columns-number),
+            $min-width: 0,
+            $max-width: 1fr,
+            $gap: 0,
+            $justify: start
+        );
+    }
+}

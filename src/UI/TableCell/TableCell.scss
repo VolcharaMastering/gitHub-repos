@@ -1,0 +1,25 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/consts" as consts;
+@use "../../styles/text-mixins" as texts;
+
+
+.table-cell {
+    @include texts.code-font-style();
+    @include blocks.table-cell();
+    padding: 10px 0;
+    // max-width: 100px;
+    &.centered {
+        align-items: center;
+    }
+    .table-cell__value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: fit-content;
+        padding: 0 10px;
+        // @include blocks.flex_row($justify: center, $gap: 10px);
+    }
+}
+// .table-cell_no-border {
+//   border-right: none;
+// }

@@ -3,9 +3,8 @@ import axiosInstance from "../../config/axiosInstance";
 export const getAllIRepos = async (
     gitLogin: string,
     gitToken: string,
-    page: number = 1,
-    perPage: number = 30,
-    sortBy: string = "updated_at"
+    sortBy: string = "updated_at",
+    direction: "asc" | "desc" = "desc"
 ): Promise<Repository[]> => {
     const headers = {
         Authorization: `Bearer ${gitToken}`,
@@ -15,10 +14,9 @@ export const getAllIRepos = async (
         throw new Error("Git login is required to fetch repositories.");
     }
     const url = `users/${gitLogin}/repos`;
-    const params: { per_page?: number; page?: number; sort: string; visibility?: string } = {
-        per_page: perPage,
-        page,
+    const params: { sort: string; direction?: string } = {
         sort: sortBy,
+        direction,
     };
     try {
         const response = await axiosInstance.get(url, { headers, params });

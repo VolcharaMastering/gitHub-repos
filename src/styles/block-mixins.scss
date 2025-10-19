@@ -61,7 +61,24 @@
     border: none;
     transition: consts.$transition;
 }
-
+@mixin table-cell(
+    $width: 100%,
+    $height: 40px,
+    $align: center,
+    $justify: space-between,
+    $padding: 0 5%,
+    $border-bottom: consts.$default_border
+) {
+    @include flex_row($align: $align, $justify: $justify);
+    width: $width;
+    height: $height;
+    padding: $padding;
+    border-bottom: $border-bottom;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 // ------special block decoration
 @mixin list-without-dots {
     @include flex_row();
