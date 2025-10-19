@@ -1,16 +1,19 @@
 import axiosInstance from "../../config/axiosInstance";
 
 export const deleteRepo = async (
-    gitOwner: string,
-    gitRepo: string,
-    gitToken: string
+    gitLogin: string,
+    gitToken: string,
+    repoName: string
 ): Promise<void> => {
     const headers = {
         Authorization: `Bearer ${gitToken}`,
         Accept: "application/vnd.github+json",
     };
-
-    const url = `https://api.github.com/repos/${gitOwner}/${gitRepo}`;
+    console.log("Deleting repo:", gitLogin, gitToken, repoName);
+    if (!gitLogin || !gitToken || !repoName) {
+        throw new Error("Data (login, token, name) is required to update repository.");
+    }
+    const url = `repos/${gitLogin}/${repoName}`;
 
     try {
         await axiosInstance.delete(url, { headers });

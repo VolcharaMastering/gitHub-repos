@@ -34,7 +34,6 @@ const GitForm: React.FC = () => {
                 console.error(`Error fetching repositories: ${String(error)}`);
             }
         }
-        // Handle form submission logic here
     };
     const setInputData = async (name: string, value: string | Blob) => {
         setFormValues({ [name]: value }, { type: "zod", schema: formSchema });
@@ -62,7 +61,7 @@ const GitForm: React.FC = () => {
                 value={formValues.gitToken}
             />
 
-            <CustomButton type="submit" text="Save" disabled={!isValid} onSubmit={handleSubmit} />
+            <CustomButton type="submit" text="Save" disabled={!isValid} />
         </form>
     );
 };

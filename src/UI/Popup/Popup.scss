@@ -1,9 +1,11 @@
-@import "@/styles/block-mixins.scss";
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
 
 .popup {
     position: relative;
-    @include flex_column($justify: center);
-    @include block-default();
+    @include blocks.flex_column($justify: center);
+    @include blocks.default_block();
     border-radius: 10px;
     height: fit-content;
     min-width: 500px;
@@ -31,7 +33,7 @@
         cursor: pointer;
     }
     .popup__children {
-        @include flex_column($justify: flex-start);
+        @include blocks.flex_column($justify: flex-start);
         height: fit-content;
         width: 100%;
         flex: 1;
@@ -45,7 +47,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    @include flex_column($justify: center);
+    @include blocks.flex_column($justify: center);
     background-color: #6a5d5d80;
     z-index: 4;
 }

@@ -3,11 +3,10 @@ interface Repository {
     node_id: string;
     name: string;
     full_name: string;
-    private: boolean;
     owner: {
         login: string;
     };
-    description: string | null;
+    description?: string | null;
     html_url: string;
     url: string;
     created_at: string;
@@ -23,12 +22,10 @@ interface Repository {
 interface NewRepo {
     name: string;
     description?: string | null;
-    private?: boolean;
+    isPrivate: boolean;
 }
 interface ReposStoreState {
     repositories: Repository[];
-    // loading: boolean;
-    // error: string | null;
     getAllRepos: (
         gitLogin: string,
         gitToken: string,
@@ -37,4 +34,15 @@ interface ReposStoreState {
         per_page?: number,
         page?: number
     ) => Promise<void>;
+    updateRepository: (
+        gitLogin: string,
+        gitToken: string,
+        repoName: string,
+        newData: {
+            description?: string;
+            visibility: "public" | "private";
+        }
+    ) => Promise<void>;
+    createRepository: (gitLogin: string, gitToken: string, data: NewRepo) => Promise<void>;
+    deleteRepository: (gitLogin: string, gitToken: string, repoName: string) => Promise<void>;
 }

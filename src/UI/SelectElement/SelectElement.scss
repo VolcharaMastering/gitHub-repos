@@ -1,0 +1,161 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+.select-element {
+  @include blocks.flex_column($align: flex-start, $gap: 8px);
+  width: 100%;
+  max-width: var(--max-width, 100%);
+
+  // Размерные варианты
+  &.small {
+    .select-element__label {
+      font-size: 14px;
+    }
+  }
+
+  &.large {
+    .select-element__label {
+      font-size: 18px;
+    }
+  }
+
+  &__label {
+    @include texts.main-font-style();
+    color: consts.$text-primary;
+    margin-bottom: 4px;
+  }
+
+  &__select {
+    width: 100%;
+    
+    // Переопределение стилей react-select для темной темы
+    .react-select {
+      &__control {
+        background-color: consts.$bg-elev;
+        border: consts.$default-border;
+        border-radius: 10px;
+        transition: consts.$transition;
+        min-height: 40px;
+
+        &--is-focused {
+          border-color: consts.$accent-primary;
+          box-shadow: 0 0 0 1px consts.$accent-primary;
+        }
+
+        &--menu-is-open {
+          border-color: consts.$accent-primary;
+        }
+      }
+
+      &__value-container {
+        padding: 4px 12px;
+      }
+
+      &__single-value {
+        @include texts.main-font-style($color: consts.$text-primary);
+      }
+
+      &__placeholder {
+        @include texts.main-font-style($color: consts.$text-muted);
+      }
+
+      &__input {
+        @include texts.main-font-style($color: consts.$text-primary);
+      }
+
+      &__menu {
+        background-color: consts.$bg-elev;
+        border: consts.$default-border;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      &__menu-list {
+        padding: 8px 0;
+      }
+
+      &__option {
+        @include texts.main-font-style($color: consts.$text-muted);
+        padding: 8px 12px;
+        background-color: consts.$bg-elev;
+        cursor: pointer;
+        transition: consts.$transition;
+
+        &--is-focused {
+          background-color: consts.$bg-soft;
+          color: consts.$text-primary;
+        }
+
+        &--is-selected {
+          background-color: consts.$accent-primary;
+          color: consts.$text-inverse;
+        }
+      }
+
+      &__indicator-separator {
+        display: none;
+      }
+
+      &__dropdown-indicator {
+        color: consts.$text-muted;
+        padding: 8px;
+        transition: consts.$transition;
+
+        &:hover {
+          color: consts.$text-primary;
+        }
+      }
+
+      &__clear-indicator {
+        color: consts.$text-muted;
+        padding: 8px;
+        transition: consts.$transition;
+
+        &:hover {
+          color: consts.$error;
+        }
+      }
+    }
+  }
+
+  &__error-message {
+    @include blocks.flex_row($align: center, $gap: 8px);
+    margin-top: 4px;
+
+    .error-message_icon {
+      width: 16px;
+      height: 16px;
+      background-color: consts.$error;
+      border-radius: 50%;
+      position: relative;
+
+      &::before {
+        content: "!";
+        @include texts.main-font-style($font-size: 12px, $color: white, $font-weight: 700);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .error-message {
+      @include texts.main-font-style($font-size: 14px, $color: consts.$error);
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .select-element {
+    &__select {
+      .react-select {
+        &__control {
+          min-height: 44px; 
+        }
+      }
+    }
+  }
+}

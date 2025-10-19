@@ -1,0 +1,17 @@
+@use "../../styles/block-mixins" as blocks;
+@use "../../styles/text-mixins" as texts;
+@use "../../styles/consts" as consts;
+
+.repositories {
+    width: 100%;
+    @include blocks.flex_column($align: center, $gap: 20px);
+    @include blocks.default_block();
+    .repositories__header {
+        width: 100%;
+        @include blocks.flex_row($align: center, $justify: space-between);
+        margin-bottom: 10px;
+        // .repositories__title {
+        //     @include texts.title-text();
+        // }
+}
+}

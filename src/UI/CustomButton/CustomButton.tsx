@@ -4,6 +4,7 @@ import "./CustomButton.scss";
 type PropsButton = {
     type?: "button" | "submit";
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onSubmit?: (event: React.FormEvent<HTMLButtonElement>) => void;
     text?: string;
     disabled?: boolean;
     border?: "none" | "thin";
@@ -18,7 +19,9 @@ type PropsButton = {
 };
 
 const CustomButton: React.FC<PropsButton> = ({
+    type,
     onClick,
+    onSubmit,
     text,
     disabled = false,
     border = "thin",
@@ -51,8 +54,9 @@ const CustomButton: React.FC<PropsButton> = ({
         <button
             className={buttonClassNames}
             style={style}
-            type="button" // default type is "button"
+            type={type ? type : "button"} // default type is "button"
             onClick={onClick}
+            onSubmit={onSubmit}
             disabled={disabled}
             aria-label={text || (imageForButton ? "Button with icon" : "Button")}
         >

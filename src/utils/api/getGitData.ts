@@ -1,4 +1,5 @@
 import axiosInstance from "../../config/axiosInstance";
+import { filterReposResponse } from "../filterReposResponce";
 
 export const getAllIRepos = async (
     gitLogin: string,
@@ -20,26 +21,7 @@ export const getAllIRepos = async (
     };
     try {
         const response = await axiosInstance.get(url, { headers, params });
-        const repos = response.data.map((r: Repository) => ({
-            id: r.id,
-            node_id: r.node_id,
-            name: r.name,
-            full_name: r.full_name,
-            private: r.private,
-            owner: { login: r.owner.login },
-            description: r.description,
-            html_url: r.html_url,
-            url: r.url,
-            created_at: r.created_at,
-            updated_at: r.updated_at,
-            git_url: r.git_url,
-            ssh_url: r.ssh_url,
-            clone_url: r.clone_url,
-            license: r.license,
-            visibility: r.visibility,
-            default_branch: r.default_branch,
-        }));
-
+        const repos = response.data.map((r: Repository) => filterReposResponse(r));
         return repos;
     } catch (error: unknown | Error) {
         if (error instanceof Error) {

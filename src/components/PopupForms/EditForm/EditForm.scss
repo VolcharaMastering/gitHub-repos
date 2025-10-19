@@ -1,0 +1,10 @@
+@use "../../../styles/block-mixins" as blocks;
+@use "../../../styles/text-mixins" as texts;
+@use "../../../styles/consts" as consts;
+
+.edit-form {
+    @include blocks.flex_column($align: center, $gap: 30px);
+    height: 100%;
+    width: 100%;
+    padding: 10% 5%;
+}

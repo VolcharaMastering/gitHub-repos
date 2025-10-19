@@ -1,16 +1,16 @@
 import { useCallback, useState } from "react";
 import { useFloating, FloatingPortal, offset, shift } from "@floating-ui/react";
-// import EditForm from "../components/EditForm
 import CustomButton from "../../../UI/CustomButton/CustomButton";
-// import { useOpenPopup } from "@/stores/popupState";
 import editIcon from "../../../assets/edit-button.svg";
+import EditForm from "../../../components/PopupForms/EditForm/EditForm";
+import { useOpenPopup } from "../../../store/popupStore";
 
 type PropsEditButton = {
-    idToEdit: number;
+    repoName: string;
     width?: string;
 };
-const EditButton: React.FC<PropsEditButton> = ({ idToEdit, width = "20px" }) => {
-    // const { setIsOpen } = useOpenPopup();
+const EditButton: React.FC<PropsEditButton> = ({ repoName, width = "20px" }) => {
+    const { setIsOpen } = useOpenPopup();
     const [isHovered, setIsHovered] = useState(false);
 
     const { refs, floatingStyles } = useFloating({
@@ -18,12 +18,12 @@ const EditButton: React.FC<PropsEditButton> = ({ idToEdit, width = "20px" }) => 
         middleware: [offset(1), shift()],
     });
 
-    // const handleOpenPopup = useCallback(() => {
-    //             setIsOpen(true, {
-    //                 popupType: "form",
-    //                 formComponent: <EditUserForm editUser={idToEdit} />,
-    //             });
-    // }, [setIsOpen]);
+    const handleOpenPopup = useCallback(() => {
+        setIsOpen(true, {
+            popupType: "form",
+            formComponent: <EditForm repoName={repoName} />,
+        });
+    }, [setIsOpen, repoName]);
 
     return (
         <div
@@ -36,7 +36,7 @@ const EditButton: React.FC<PropsEditButton> = ({ idToEdit, width = "20px" }) => 
                 iconWidth={width}
                 customWidth={width}
                 border="none"
-                // onClick={handleOpenPopup}
+                onClick={handleOpenPopup}
             />
             {isHovered && (
                 <FloatingPortal>

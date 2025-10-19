@@ -47,8 +47,8 @@ const TheTable = () => {
                             copyUrl={key === "html_url" || key === "clone_url"}
                         />
                     ))}
-                    <EditButton idToEdit={item.id} />
-                    <DeleteButton idToDelete={item.id} />
+                    <EditButton repoName={item.name} />
+                    <DeleteButton repoName={item.name} />
                 </div>
             ))}
         </div>

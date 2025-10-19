@@ -1,23 +1,15 @@
-"use client";
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
-import { useErrorState } from "@/stores/errorState";
-import { useLoader } from "@/stores/loaderStore";
-import { useOpenPopup } from "@/stores/popupState";
+// import { useErrorState } from "@/stores/errorState";
+import { useLoader } from "../../store/loaderStore";
+import { useOpenPopup } from "../../store/popupStore";
 
-import dictionary from "@/context/buttonLabels.json";
-
-import ErrorPopupMessage from "../ErrorPopupMessage/ErrorPopupMessage";
-import SimpleButton from "../SimpleButton/SimpleButton";
+// import ErrorPopupMessage from "../ErrorPopupMessage/ErrorPopupMessage";
+import CustomButton from "../CustomButton/CustomButton";
 
 import "./Popup.scss";
 
 const Popup: React.FC = () => {
-    //  here should be some hook to switch between languages
-    const lang = "ru";
-    // get labels from dictionary
-    const buttonLabels = dictionary[lang];
     // constructing popup using other components
     // popupType: inform, form, submit
     // formComponent: some custom form
@@ -27,14 +19,15 @@ const Popup: React.FC = () => {
     const { popupType, formComponent, textComponent, size, setIsOpen } = useOpenPopup();
 
     const { isLoading } = useLoader();
-    const { message, code, cleanError } = useErrorState();
-    const handleClosePopup = () => {
+    // const { message, code, cleanError } = useErrorState();
+
+    const handleClosePopup = useCallback(() => {
         if (isLoading) {
             return;
         }
         setIsOpen(false, null);
-        cleanError();
-    };
+        // cleanError();
+    }, [isLoading, setIsOpen]);
     // esc listener to close popup
     useEffect(() => {
         function onKeyDown(evt: KeyboardEvent) {
@@ -46,7 +39,7 @@ const Popup: React.FC = () => {
         return () => {
             document.removeEventListener("keydown", onKeyDown);
         };
-    }, [isLoading]);
+    }, [isLoading, handleClosePopup]);
 
     return (
         // popup shadow with closeOnClick functionality
@@ -60,49 +53,33 @@ const Popup: React.FC = () => {
                 />
                 <div className="popup__children">
                     {/* Creating popup with information (success/errors) */}
-                    {message ? (
+                    {/* {message ? (
                         <ErrorPopupMessage
-                            // message="Произошла ошибка! Проверьте данные или обратитесь к администратору."
                             message={message}
                         />
                     ) : (
+                        <> */}
+                    {/* Creating popup with information */}
+                    {popupType === "inform" && (
                         <>
-                            {/* Creating popup with information */}
-                            {popupType === "inform" && (
-                                <>
-                                    {textComponent}
-                                    <SimpleButton
-                                        type="button"
-                                        size="small-size"
-                                        text={buttonLabels.ok}
-                                        onClick={handleClosePopup}
-                                    />
-                                </>
-                            )}
-
-                            {/* Creating popup with form */}
-                            {popupType === "form" && formComponent}
-
-                            {/* Creating popup to get user submission */}
-                            {popupType === "submit" && (
-                                <>
-                                    {textComponent}
-                                    <SimpleButton
-                                        type="button"
-                                        size="small-size"
-                                        text={buttonLabels.submit}
-                                        onClick={handleClosePopup}
-                                    />
-                                    <SimpleButton
-                                        type="button"
-                                        size="small-size"
-                                        text={buttonLabels.cancel}
-                                        onClick={handleClosePopup}
-                                    />
-                                </>
-                            )}
+                            {textComponent}
+                            <CustomButton type="button" text="Close" onClick={handleClosePopup} />
                         </>
                     )}
+
+                    {/* Creating popup with form */}
+                    {popupType === "form" && formComponent}
+
+                    {/* Creating popup to get user submission */}
+                    {popupType === "submit" && (
+                        <>
+                            {textComponent}
+                            <CustomButton type="button" text="Submit" onClick={handleClosePopup} />
+                            <CustomButton type="button" text="Cancel" onClick={handleClosePopup} />
+                        </>
+                    )}
+                    {/* </>
+                    )} */}
                 </div>
             </section>
         </div>
