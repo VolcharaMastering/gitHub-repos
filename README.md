@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# GitHub Repositories Administration
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small test project implementing an **administration panel for GitHub repositories**.  
+The goal was to create a lightweight and secure interface for managing repositories via the GitHub API.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+On the start page (`/`), the user can enter a **GitHub username** and a **personal access token** (generated in:  
+`Settings → Developer settings → Personal access tokens`).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+After pressing the **Save** button:
 
-## Expanding the ESLint configuration
+- If the credentials are valid, the user is redirected to the `/repositories` page.
+- The credentials are stored in **Zustand / React in-memory state** (not persisted for safety).
+- The token is erased after a page reload or app restart.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Repositories Page
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+After successful authentication, the `/repositories` page displays a **table of repositories** for the specified account.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Each repository entry shows:
+
+- Name and description
+- SSH and HTTPS clone URLs (copyable via button)
+- Last updated date
+- Visibility (public/private)
+- Action buttons: **Edit** and **Delete**
+
+At the top of the page, there is a **“New repository”** button.  
+Creating a repo requires filling in its **name**, **description**, and **visibility**.
+
+Editing allows changing **description** or **visibility**.  
+Deleting a repository opens a confirmation dialog before performing the action.
+
+Repositories can be **sorted** by:
+
+- Name
+- Updated At
+- Visibility
+
+Sorting is toggled by clicking the corresponding table header (ascending / descending).
+
+All API or frontend errors are handled by the **Error Handler** and displayed via a popup message.
+
+---
+
+## Project Structure
+
+```
+src/
+│
+├── assets/           # Icons and images
+├── components/       # UI and logic components
+│   └── PopupForms/   # Forms used inside popup components
+├── config/           # System configurations (currently axios instance)
+├── routes/           # Application routes and layout
+│   ├── Root/         # Root layout with Error, Popup, and Loader
+│   ├── AdminPage/    # Settings page (credentials input)
+│   ├── Repositories/ # Repositories management page
+│   └── NotFound/     # 404 page
+├── store/            # Zustand store files
+├── styles/           # Global SCSS constants and mixins
+├── types/            # Global TypeScript types (e.g., Repository)
+├── UI/               # UI elements (InputElement, CustomButton, Popup, etc.)
+├── utils/            # Helpers: API calls, validation, utilities
+│
+├── main.tsx          # App entry point
+└── index.scss        # Global styles
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Technologies Used
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **React.js**
+- **TypeScript**
+- **SCSS**
+- **Zustand**
+- **Zod**
+- **Axios**
+- **Vite**
+- **GitHub REST API**
+- **full-form-control** — custom NPM library (form control for React + TS)
+
+---
+
+## Future Plans
+
+- Add responsive layout (flexible/adaptive design)
+- Integrate embedded code editor (IDE-like view)
+- Add OAuth-based GitHub authorization for improved security

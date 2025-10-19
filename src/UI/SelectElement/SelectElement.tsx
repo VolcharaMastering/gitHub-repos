@@ -142,7 +142,7 @@ const SelectElement: React.FC<PropsSelectElement> = ({
                 options={options}
                 value={currentValue}
                 onChange={handleChange}
-                placeholder="Выберите значение"
+                placeholder="Choose an option"
                 styles={getCustomStyles(maxWidth, errorMessage, size)}
                 isSearchable={false}
             />

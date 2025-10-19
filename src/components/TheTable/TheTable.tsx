@@ -18,7 +18,6 @@ const TheTable = () => {
         [columnCount]
     );
 
-    // Выносим повторяющуюся логику
     const configEntries = Object.entries(tableConfig);
 
     return (
