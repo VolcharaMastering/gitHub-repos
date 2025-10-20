@@ -20,6 +20,8 @@ After pressing the **Save** button:
 
 ## Repositories Page
 
+Clicking a repository name opens a details table showing the API response (!Brief: only essential information about the repository!) for that repository, so you can inspect additional fields returned by GitHub.
+
 After successful authentication, the `/repositories` page displays a **table of repositories** for the specified account.
 
 Each repository entry shows:
