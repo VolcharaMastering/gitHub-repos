@@ -17,6 +17,9 @@
         padding: 0 10px;
         // @include blocks.flex_row($justify: center, $gap: 10px);
     }
+    .table-cell__value-active{
+        cursor: pointer;
+    }
 }
     .justify-left {
         justify-content: left;

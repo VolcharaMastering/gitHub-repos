@@ -1,0 +1,51 @@
+@use "../../../styles/block-mixins" as blocks;
+@use "../../../styles/text-mixins" as texts;
+@use "../../../styles/consts" as consts;
+
+.info-form {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__item {
+    @include blocks.flex_row(center, space-between, 12px);
+    padding: 12px 30px;
+    border-radius: 10px;
+    background-color: consts.$bg-elev;
+    border: consts.$default-border;
+    box-sizing: border-box;
+    min-height: 48px;
+  }
+
+  &__label {
+    @include texts.main-font-style($font-size: 14px, $font-weight: 600, $color: consts.$text-muted);
+    min-width: 160px; 
+    margin-right: 12px;
+  }
+
+  &__value {
+    @include texts.main-font-style($font-size: 14px);
+    margin: 0;
+    word-break: break-word;
+    max-width: calc(100% - 220px);
+  }
+
+  &__value-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    .link {
+      width: 100%;
+      text-decoration: none;
+      @include texts.code-font-style($font-size: 14px);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

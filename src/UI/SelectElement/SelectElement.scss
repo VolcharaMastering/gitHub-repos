@@ -28,7 +28,6 @@
   &__select {
     width: 100%;
     
-    // Переопределение стилей react-select для темной темы
     .react-select {
       &__control {
         background-color: consts.$bg-elev;

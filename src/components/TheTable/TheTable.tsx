@@ -43,6 +43,7 @@ const TheTable = () => {
                         <TableCell
                             key={`${item.id}-${key}`}
                             value={item[key as keyof Repository]}
+                            reposId={key === "name" ? item.id : undefined}
                             copyUrl={key.toLowerCase().includes("url")}
                             justify={key.toLowerCase().includes("url") ? "center" : undefined}
                         />
