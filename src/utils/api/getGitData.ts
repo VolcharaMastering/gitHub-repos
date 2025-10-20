@@ -15,7 +15,7 @@ export const getAllIRepos = async (
     if (!gitLogin) {
         throw new Error("Git login is required to fetch repositories.");
     }
-    const url = `users/${gitLogin}/repos`;
+    const url = `user/repos`;
     const params: { sort: string; direction?: string } = {
         sort: sortBy,
         direction,

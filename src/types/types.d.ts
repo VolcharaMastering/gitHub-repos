@@ -41,6 +41,7 @@ interface ReposStoreState {
         newData: {
             description?: string;
             visibility: "public" | "private";
+            private: boolean;
         }
     ) => Promise<void>;
     createRepository: (gitLogin: string, gitToken: string, data: NewRepo) => Promise<void>;

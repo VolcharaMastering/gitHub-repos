@@ -53,6 +53,7 @@ const EditForm: React.FC<PropsEditForm> = ({ repoName }) => {
             await updateRepository(gitLogin, gitToken, repoName, {
                 description,
                 visibility,
+                private: visibility === "private",
             });
             setIsSuccess(true);
             setIsLoading(false);
